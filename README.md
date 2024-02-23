@@ -72,19 +72,12 @@ class GradBoostedLowess():
         final_preds = np.zeros(x_new.shape[0])
         resids = self.yhat_
         for i in range(boosts):
-          #model = GradBoostedLowess()
-          #model.fit(self.xtrain_, resids)
           self.fit(self.xtrain_, resids)
-          #new_preds = model.single_predict(self.xtrain_)
           new_preds = self.single_predict(self.xtrain_)
-          #final_preds = final_preds + model.single_predict(x_new)
           final_preds = final_preds + self.single_predict(x_new)
           resids = resids - new_preds
 
-        #model = GradBoostedLowess()
-        #model.fit(self.xtrain_, resids)
         self.fit(self.xtrain_, resids)
-        #new_preds = model.single_predict(x_new)
         new_preds = self.single_predict(x_new)
         final_preds = final_preds + new_preds
         return final_preds
